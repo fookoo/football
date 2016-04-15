@@ -1,6 +1,8 @@
 export class HistoryService {
-    constructor() {
+    constructor(Common) {
         "ngInject";
+
+        this.Common = Common;
 
         this.history = angular.fromJson(window.localStorage.getItem('football.history')) || [];
         this.sync();
@@ -25,15 +27,29 @@ export class HistoryService {
     }
 
     addMatch(match = {
-        home: 'id', 
-        away: 'id', 
+        home: 'player object',
+        away: 'player object',
         score: { 
             home: 0, 
             away: 0
         } 
     }) {
+        match.id = this.Common.generateId();
         this.history.push(match);
 
+        this.sync();
+    }
+    
+    removeMatch(match) {
+        this.history = this.history.filter((item) => {
+            return item.id !== match.id;
+        });
+
+        this.sync();
+    }
+
+    clear() {
+        this.history = [];
         this.sync();
     }
 
@@ -43,4 +59,4 @@ export class HistoryService {
 
 }
 
-HistoryService.$inject = ['$q'];
+HistoryService.$inject = ['Common'];

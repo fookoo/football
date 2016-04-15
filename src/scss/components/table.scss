@@ -6,6 +6,13 @@ body {
   background: #242424;
 }
 
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
 .md-table {
   user-select: none;
   -webkit-user-select: none;
@@ -19,9 +26,7 @@ body {
     color: #fff;
 
     text-align: center;
-    .left {
-      text-align: left;
-    }
+
   }
 
   .md-table-row {
@@ -36,6 +41,10 @@ body {
         background: #aaa;
       }
 
+      .icon {
+        padding: 0;
+        line-height: 38px;
+      }
       div {
         padding: 10px;
       }
@@ -55,8 +64,11 @@ body {
   }
 }
 
+
+
 .history {
   .cells {
+
     div {
       background: #eee;
     }

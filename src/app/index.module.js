@@ -8,6 +8,7 @@ import { TableController } from "./controllers/table.controller";
 /* Directives */
 
 /* Service */
+import { CommonService } from "./services/common.service";
 import { HistoryService } from "./services/history.service";
 import { PlayersService } from "./services/players.service";
 
@@ -36,6 +37,7 @@ angular
     /* Directives */
 
     /* Services */
+    .service("Common", CommonService)
     .service("History", HistoryService)
     .service("Players", PlayersService)
 

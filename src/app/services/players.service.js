@@ -1,12 +1,11 @@
 export class PlayersService {
-    constructor() {
+    constructor(Common) {
         "ngInject";
+
+        this.Common = Common;
 
         this.players = angular.fromJson(window.localStorage.getItem('football.players') || []) ;
         this.sync();
-
-
-        console.info (`PlayersService ${this.players}`);
     }
 
     getPlayers() {
@@ -17,24 +16,21 @@ export class PlayersService {
     addPlayer(player = 'Player #') {
         console.info ('PlayersService:addPlayer', player);
         this.players.push({
-            id: this.generateId(),
+            id: this.Common.generateId(),
             name: player
         });
 
+        this.sync();
+    }
+    
+    clear() {
+        this.players = [];
         this.sync();
     }
 
     sync() {
         window.localStorage.setItem('football.players', angular.toJson(this.players));
     }
-
-    generateId() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
-    }
-
 }
 
-PlayersService.$inject = ['$q'];
+PlayersService.$inject = ['Common'];

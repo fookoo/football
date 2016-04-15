@@ -1,10 +1,11 @@
 export class TableController {
-    constructor(Players, History) {
+    constructor(Players, History, $mdDialog) {
         "ngInject";
 
         // bindings
         this.Players = Players;
         this.History = History;
+        this.$mdDialog = $mdDialog;
 
         this.matches = [{
             home: {},
@@ -34,6 +35,36 @@ export class TableController {
         console.info ('addMatch', match);
         this.History.addMatch(angular.copy(match));
         this.sync();
+    }
+
+    removeMatch(match, event) {
+        let confirm = this.$mdDialog.confirm()
+            .title('Na pewno chcesz usunąć mecz?')
+            .content('Wpłynie to na sytuację w tabeli, jesteś pewien')
+            .targetEvent(event)
+            .ok('Tak usuń')
+            .cancel('Ups');
+
+        this.$mdDialog.show(confirm).then(() => {
+            this.History.removeMatch(match);
+            this.sync();
+        });
+
+    }
+
+    reset() {
+        let confirm = this.$mdDialog.confirm()
+            .title('Na pewno chcesz wykonać reset')
+            .content('Spowoduje to usunięcie wszystkich zawodników oraz meczów')
+            .targetEvent(event)
+            .ok('Tak usuń')
+            .cancel('Ups');
+
+        this.$mdDialog.show(confirm).then(() => {
+            this.Players.clear();
+            this.History.clear();
+            this.sync();
+        });
     }
 
     sync() {
@@ -66,26 +97,19 @@ export class TableController {
                 // points
                 let home = parseInt(match.score.home);
                 let away = parseInt(match.score.away);
-                console.info(home + ":" + away);
 
                 if (home > away) {
                     // home wins
-                    console.info ('home>away');
-
 
                     if (match.home.id === player.id) {
                         //player is home
                         //player win
-                        console.info ('win');
-
                         games.win++;
                         goals.shoot += home;
                         goals.lose += away;
                     } else {
                         //player is away
                         //player lose
-                        console.info ('lose');
-
                         games.lose++;
                         goals.shoot += away;
                         goals.lose += home;
@@ -93,29 +117,21 @@ export class TableController {
 
                 } else if (away > home) {
                     // away wins
-                    console.info ('home<away');
-
-
                     if (match.home.id === player.id) {
                         //player is home
                         //player lose
-                        console.info ('lose');
-
                         games.lose++;
                         goals.shoot += home;
                         goals.lose += away;
                     } else {
                         //player is away
                         //player win
-                        console.info ('win');
-
                         games.win++;
                         goals.shoot += away;
                         goals.lose += home;
                     }
                 } else {
                     // draw
-                    console.info ('draw');
                     games.draw++;
                     goals.shoot += home;
                     goals.lose += home;
@@ -136,4 +152,4 @@ export class TableController {
     }
 }
 
-TableController.$inject = ['Players', 'History'];
+TableController.$inject = ['Players', 'History', '$mdDialog'];
