@@ -1,10 +1,9 @@
 CACHE MANIFEST
-https://fonts.googleapis.com/icon?family=Material+Icons
-https://fonts.gstatic.com/s/materialicons/v14/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff
+# 2016-04-15:v3
+
+assets/icons.woff2
 assets/icon-big.png
 assets/icon-small.png
-js/app.js
-js/templates.js
-js/vendor.js
+js/app.min.js
 style/app.css
 index.html

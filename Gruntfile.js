@@ -169,7 +169,7 @@ module.exports = function (grunt) {
                 showDir: true,
                 autoIndex: true,
                 ext: "html",
-                runInBackground: true,
+                runInBackground: false
             }
         },
 
@@ -221,7 +221,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('template', ['html2js']);
     grunt.registerTask('es6compile', ['browserify']);
-    grunt.registerTask('minimize-js', ['uglify:app', 'uglify:callback']);
+    grunt.registerTask('minimize-js', ['uglify:app']);
 
     grunt.registerTask('build-css', ['sass', 'concat:style', 'clean:style']);
     grunt.registerTask('build-js', ['es6compile', 'concat:vendor', 'template']);

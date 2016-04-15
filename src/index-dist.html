@@ -1,18 +1,22 @@
 <!doctype html>
-<html ng-app="anything">
+<html ng-app="anything" manifest="football.appcache">
     <head>
-        <base href="/">
         <meta charset="utf-8">
-        <title ng-bind="'title' | translate"></title>
+        <title>Football</title>
         <link rel="stylesheet" href="style/app.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-              rel="stylesheet">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" sizes="192x192" href="assets/icon-big.png">
+        <link rel="icon" sizes="128x128" href="assets/icon-small.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="assets/icon-small.png">
+        <link rel="apple-touch-icon-precomposed" sizes="128x128" href="assets/icon-small.png">
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
     </head>
 
     <body>
         <ui-view></ui-view>
+
         <script type="application/javascript" src="js/app.min.js"></script>
     </body>
 </html>
