@@ -77,9 +77,55 @@ body {
 
 .md-matches {
   margin-bottom: 20px;
-  background: #acacac;
+  background: #c1c1c1;
   padding: 10px;
   border-top: 60px solid #000;
+
+  transition: 500ms all;
+
+  &.success {
+
+    position: relative;
+    border-top: 60px solid #1f6920;
+    &:after {
+      position: absolute;
+      top: 0; left: 0;
+      bottom: 0; right: 0;
+
+      background: #209922;
+      content: 'Mecz dodany';
+      text-align: center;
+      font-size: 44px;
+      line-height: 210px;
+      color: #9ff49a;
+      text-transform: uppercase;
+    }
+    * {
+      visibility: hidden;
+    }
+  }
+
+  &.fail {
+
+    position: relative;
+    border-top: 60px solid #69131d;
+    &:after {
+      position: absolute;
+      top: 0; left: 0;
+      bottom: 0; right: 0;
+
+      background: #b72329;
+      content: 'Wybierz graczy';
+      text-align: center;
+      font-size: 36px;
+      line-height: 210px;
+      color: #f49980;
+      text-transform: uppercase;
+    }
+    * {
+      visibility: hidden;
+    }
+  }
 
   .layout-row {
     .action {

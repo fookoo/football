@@ -49,10 +49,10 @@
             <footer flex>
                 <div layout="row">
                     <div flex>
-                        <form ng-submit="ctrl.addPlayer()">
+                        <form ng-submit="ctrl.addPlayer()" autocomplete="off" >
                             <md-input-container>
                                 <label>Nickname</label>
-                                <input name="nickname" ng-model="ctrl.nickname" maxlength="8" md-maxlength="8" required>
+                                <input autocomplete="off" name="nickname" ng-model="ctrl.nickname" maxlength="8" md-maxlength="8" required>
                             </md-input-container>
                         </form>
                     </div>
@@ -61,20 +61,19 @@
         </div>
     </md-content>
     <md-content layout-padding>
-        <div class="md-matches" layout="column" ng-repeat="match in ctrl.matches track by $index">
+        <div class="md-matches" layout="column">
 
             <div flex layout="row">
                 <div flex>
-                    <md-select ng-model="match.home">
-                        <md-option ng-value="{{ player }}" ng-repeat="player in ctrl.players">{{ player.name | uppercase }}</md-option>
+                    <md-select ng-model="ctrl.match.home">
+                        <md-option ng-value="{{ player.player }}" ng-repeat="player in ctrl.table | orderBy: 'history.length'">{{ player.player.name | uppercase }}</md-option>
                     </md-select>
                 </div>
                 <div flex="5" style="line-height: 80px">vs</div>
                 <div flex>
                     <div flex>
-                        <md-select ng-model="match.away">
-                            <md-option ng-value="{{ player }}" ng-repeat="player in ctrl.players">{{ player.name | uppercase }}
-                            </md-option>
+                        <md-select ng-model="ctrl.match.away">
+                            <md-option ng-value="{{ player.player }}" ng-repeat="player in ctrl.table | orderBy: 'history.length'">{{ player.player.name | uppercase }}</md-option>
                         </md-select>
                     </div>
                 </div>
@@ -82,17 +81,17 @@
 
             <div flex layout="row"  layout-align="center center">
                 <div flex>
-                    <input type="number" name="home" ng-model="match.score.home" required>
+                    <input type="number" name="home" ng-model="ctrl.match.score.home" placeholder="0" required>
                 </div>
                 <div flex="5">:</div>
                 <div flex>
-                    <input type="number"  name="away" ng-model="match.score.away" required>
+                    <input type="number"  name="away" ng-model="ctrl.match.score.away" placeholder="0" required>
                 </div>
             </div>
 
             <div  flex layout="row" >
                 <div class="action" flex>
-                    <md-button class="md-primary md-raised" ng-click="ctrl.addMatch(match)">Zapisz</md-button>
+                    <md-button class="md-primary md-raised" ng-click="ctrl.addMatch()">Zapisz</md-button>
                 </div>
             </div>
 

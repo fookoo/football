@@ -13,16 +13,16 @@ export class HistoryService {
             return this.history;
         }
 
-        if (player && player.id) {
+        if (player && player !== null && player.id) {
             return this.history.filter((item) => {
-                return (item.home.id === player.id || item.away.id === player.id)
+                return item.home && item.away && (item.home.id === player.id || item.away.id === player.id)
             });
         }
     }
 
     getHistoryByPlayers(a, b) {
         return this.history.filter((item) => {
-            return (item.home === a.id && item.away === b.id) || (item.home === b.id && item.away === a.id)
+            return  (item.home === a.id && item.away === b.id) || (item.home === b.id && item.away === a.id)
         });
     }
 

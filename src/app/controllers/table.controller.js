@@ -7,15 +7,17 @@ export class TableController {
         this.History = History;
         this.$mdDialog = $mdDialog;
 
-        this.matches = [{
-            home: {},
-            away: {},
-            score: {
-                home: 0, away: 0
-            }
-        }];
 
-        this.sort = 'item.points';
+        // models
+        this.match = {
+            home: null, away: null,
+            score: {
+                home: null, away: null
+            }
+        };
+
+        // default sorting
+        this.sort = '-points';
 
         this.sync();
 
@@ -31,10 +33,40 @@ export class TableController {
         }
     }
 
-    addMatch(match) {
-        console.info ('addMatch', match);
-        this.History.addMatch(angular.copy(match));
-        this.sync();
+    addMatch() {
+        console.info ('addMatch', this.match);
+
+        if (this.match.home !== null && this.match.away !== null) {
+            this.match.score.home = this.match.score.home || 0;
+            this.match.score.away = this.match.score.away || 0;
+
+            this.History.addMatch(angular.copy(this.match));
+
+            // cleare model
+            this.match = {
+                home: null, away: null,
+                score: {
+                    home: null, away: null
+                }
+            };
+
+            document.querySelector('.md-matches').classList.add('success');
+
+            this.sync();
+        } else {
+            document.querySelector('.md-matches').classList.add('fail');
+        }
+
+
+
+
+
+        setTimeout(() => {
+            document.querySelector('.md-matches').classList.remove('success');
+            document.querySelector('.md-matches').classList.remove('fail');
+        }, 1200);
+
+
     }
 
     removeMatch(match, event) {
@@ -46,6 +78,7 @@ export class TableController {
             .cancel('Ups');
 
         this.$mdDialog.show(confirm).then(() => {
+
             this.History.removeMatch(match);
             this.sync();
         });
