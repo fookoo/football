@@ -113,6 +113,14 @@ module.exports = function (grunt) {
                     {
                         cwd: 'src/', src: ['favicon.cio'], dest: 'webapp/', expand: true
                     }
+                    ,
+                    /* manifest */
+                    {
+                        cwd: 'src/', src: ['manifest.json'], dest: 'webapp/', expand: true
+                    },
+                    {
+                        cwd: 'src/', src: ['football.appcache'], dest: 'webapp/', expand: true
+                    }
 
                 ]
             },
