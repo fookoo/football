@@ -1,107 +1,125 @@
-<div style="max-width: 660px; margin: 0 auto; padding: 40px 0;">
-    <md-content layout-padding>
-        <div class="md-table" layout="column">
-            <header flex>
-                <div layout="row">
-                    <div flex="5" class="left">#</div>
-                    <div flex="25" class="left" ng-click="ctrl.setSort('player.name')">NAZWA</div>
-                    <!-- points -->
-                    <div flex="10" ng-click="ctrl.setSort('points')">PKT</div>
+<md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+            <md-icon md-font-icon="menu">menu</md-icon>
+        </md-button>
+        <h2>
+            <span>Football</span>
+        </h2>
+        <span flex></span>
 
-                    <div flex ng-click="ctrl.setSort('history.length')">M</div>
+        <md-menu>
+            <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-font-icon="more_vert" ng-click="ctrl.openMenu($mdOpenMenu, $event)">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-click="ctrl.reset()">
+                        <md-icon md-font-icon="cached" md-menu-align-target>cached</md-icon>
+                        Reset
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
 
-                    <div flex ng-click="ctrl.setSort('games.win')">W</div>
-                    <div flex ng-click="ctrl.setSort('games.draw')">R</div>
-                    <div flex ng-click="ctrl.setSort('games.lose')">P</div>
+<md-content layout-padding>
+    <div class="md-table" layout="column">
+        <header flex>
+            <div layout="row">
+                <div flex="5" class="left">#</div>
+                <div flex="25" class="left" ng-click="ctrl.setSort('player.name')">NAZWA</div>
+                <!-- points -->
+                <div flex="10" ng-click="ctrl.setSort('points')">PKT</div>
 
-                    <div flex ng-click="ctrl.setSort('goals.shoot')">+</div>
-                    <div flex ng-click="ctrl.setSort('goals.lose')">-</div>
-                </div>
-            </header>
-            <div class="md-table-row" flex ng-repeat="item in ctrl.table | orderBy: ctrl.sort track by $index ">
-                <div layout="row" class="cells" ng-click="item.show = !item.show" ng-class="{selected: item.show}   ">
-                    <div flex="5" class="left">{{ $index + 1}}</div>
-                    <div flex="25" class="left">{{ item.player.name | uppercase}}</div>
-                    <!-- points -->
-                    <div class="points"  flex="10" flex-xs="15">{{ item.points }}</div>
+                <div flex ng-click="ctrl.setSort('history.length')">M</div>
 
-                    <div flex>{{ item.history.length }}</div>
+                <div flex ng-click="ctrl.setSort('games.win')">W</div>
+                <div flex ng-click="ctrl.setSort('games.draw')">R</div>
+                <div flex ng-click="ctrl.setSort('games.lose')">P</div>
 
-
-                    <div flex>{{ item.games.win }}</div>
-                    <div flex>{{ item.games.draw }}</div>
-                    <div flex>{{ item.games.lose }}</div>
-
-                    <div flex class="balance-1">{{ item.goals.shoot }}</div>
-                    <div flex class="balance-2">{{ item.goals.lose }}</div>
-                </div>
-                <section class="history" ng-show="item.show">
-                    <div layout="row" class="cells" ng-repeat="match in item.history track by $index">
-                        <div flex="5"></div>
-                        <div flex="40"  flex-xs="30" class="left">{{ match.home.name | uppercase }} vs {{ match.away.name | uppercase }}</div>
-                        <div flex  class="right">{{ match.score.home }} : {{ match.score.away }}</div>
-                        <div flex="10" class="icon">
-                            <md-icon md-font-icon="delete" ng-click="ctrl.removeMatch(match, $event)">delete</md-icon>
-                        </div>
-                    </div>
-                </section>
+                <div flex ng-click="ctrl.setSort('goals.shoot')">+</div>
+                <div flex ng-click="ctrl.setSort('goals.lose')">-</div>
             </div>
-            <footer flex>
-                <div layout="row">
-                    <div flex>
-                        <form ng-submit="ctrl.addPlayer()" autocomplete="off" >
-                            <md-input-container>
-                                <label>Nickname</label>
-                                <input autocomplete="off" name="nickname" ng-model="ctrl.nickname" maxlength="8" md-maxlength="8" required>
-                            </md-input-container>
-                        </form>
+        </header>
+        <div class="md-table-row" flex ng-repeat="item in ctrl.table | orderBy: ctrl.sort track by $index ">
+            <div layout="row" class="cells" ng-click="item.show = !item.show" ng-class="{selected: item.show}   ">
+                <div flex="5" class="left">{{ $index + 1}}</div>
+                <div flex="25" class="left">{{ item.player.name | uppercase}}</div>
+                <!-- points -->
+                <div class="points"  flex="10" flex-xs="15">{{ item.points }}</div>
+
+                <div flex>{{ item.history.length }}</div>
+
+
+                <div flex>{{ item.games.win }}</div>
+                <div flex>{{ item.games.draw }}</div>
+                <div flex>{{ item.games.lose }}</div>
+
+                <div flex class="balance-1">{{ item.goals.shoot }}</div>
+                <div flex class="balance-2">{{ item.goals.lose }}</div>
+            </div>
+            <section class="history" ng-show="item.show">
+                <div layout="row" class="cells" ng-repeat="match in item.history track by $index">
+                    <div flex="5"></div>
+                    <div flex="40"  flex-xs="30" class="left">{{ match.home.name | uppercase }} vs {{ match.away.name | uppercase }}</div>
+                    <div flex  class="right">{{ match.score.home }} : {{ match.score.away }}</div>
+                    <div flex="10" class="icon">
+                        <md-icon md-font-icon="delete" ng-click="ctrl.removeMatch(match, $event)">delete</md-icon>
                     </div>
                 </div>
-            </footer>
+            </section>
         </div>
-    </md-content>
-    <md-content layout-padding>
-        <div class="md-matches" layout="column">
-
-            <div flex layout="row">
+        <footer flex>
+            <div layout="row">
                 <div flex>
-                    <md-select ng-model="ctrl.match.home">
+                    <form ng-submit="ctrl.addPlayer()" autocomplete="off" >
+                        <md-input-container>
+                            <label>Nickname</label>
+                            <input autocomplete="off" name="nickname" ng-model="ctrl.nickname" maxlength="8" md-maxlength="8" required>
+                        </md-input-container>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+</md-content>
+<md-content layout-padding>
+    <div class="md-matches" layout="column">
+
+        <div flex layout="row">
+            <div flex>
+                <md-select ng-model="ctrl.match.home">
+                    <md-option ng-value="{{ player.player }}" ng-repeat="player in ctrl.table | orderBy: 'history.length'">{{ player.player.name | uppercase }}</md-option>
+                </md-select>
+            </div>
+            <div flex="5" style="line-height: 80px">vs</div>
+            <div flex>
+                <div flex>
+                    <md-select ng-model="ctrl.match.away">
                         <md-option ng-value="{{ player.player }}" ng-repeat="player in ctrl.table | orderBy: 'history.length'">{{ player.player.name | uppercase }}</md-option>
                     </md-select>
                 </div>
-                <div flex="5" style="line-height: 80px">vs</div>
-                <div flex>
-                    <div flex>
-                        <md-select ng-model="ctrl.match.away">
-                            <md-option ng-value="{{ player.player }}" ng-repeat="player in ctrl.table | orderBy: 'history.length'">{{ player.player.name | uppercase }}</md-option>
-                        </md-select>
-                    </div>
-                </div>
             </div>
-
-            <div flex layout="row"  layout-align="center center">
-                <div flex>
-                    <input type="number" name="home" ng-model="ctrl.match.score.home" placeholder="0" required>
-                </div>
-                <div flex="5">:</div>
-                <div flex>
-                    <input type="number"  name="away" ng-model="ctrl.match.score.away" placeholder="0" required>
-                </div>
-            </div>
-
-            <div  flex layout="row" >
-                <div class="action" flex>
-                    <md-button class="md-primary md-raised" ng-click="ctrl.addMatch()">Zapisz</md-button>
-                </div>
-            </div>
-
         </div>
-    </md-content>
-    <md-content layout-padding>
-        <div layout="row">
+
+        <div flex layout="row"  layout-align="center center">
             <div flex>
-                <md-button class="md-primary md-raised" ng-click="ctrl.reset()">RESET</md-button>
+                <input type="number" name="home" ng-model="ctrl.match.score.home" placeholder="0" required>
+            </div>
+            <div flex="5">:</div>
+            <div flex>
+                <input type="number"  name="away" ng-model="ctrl.match.score.away" placeholder="0" required>
             </div>
         </div>
-    </md-content>
-</div>
+
+        <div  flex layout="row" >
+            <div class="action" flex>
+                <md-button class="md-primary md-raised" ng-click="ctrl.addMatch()">Zapisz</md-button>
+            </div>
+        </div>
+
+    </div>
+</md-content>
+
