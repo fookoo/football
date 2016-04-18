@@ -23,6 +23,10 @@ export class TableController {
 
     }
 
+    openMenu($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    }
+
     addPlayer() {
         console.info ('addplayer', this.nickname);
         if (this.nickname) {
