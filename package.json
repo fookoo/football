@@ -1,7 +1,6 @@
 {
   "name": "football",
-  "version": "0.0.1",
-  "description": "null",
+  "version": "1.0.0",
   "main": "webapp/index.html",
   "keywords": [
     "angular"

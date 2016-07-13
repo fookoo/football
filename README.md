@@ -1,17 +1,10 @@
-Anything Project
-================
+Football
+========
 
-1. Overall idea
-2. What to do?
+Simple app for keep in track your local footbal matches. Just add some team and then add results in easy way. Keep track of your points, goals, etc
 
+## Screenshot
+![alt tag](http://fookoo.nazwa.pl/football.png)
 
-
-Overall idea
-------------
-
-Main idea is to create app that make bill management easy. There are two main part of this app. One of them is bills list, second one is a bill items list.
-
-Bill has:
-* id - unique id
-* name
-* balance - calculated automatically from all child items
+## Author
+Piotr Pliszczyński (fookoo@gmail.com)
